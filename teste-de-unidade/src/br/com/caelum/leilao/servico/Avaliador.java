@@ -4,7 +4,7 @@ import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
 
 public class Avaliador {
-
+	// constando que guarda o menor número double
 	private double maiorDeTodos = Double.NEGATIVE_INFINITY;
 
 	public void avalia(Leilao leilao) {
@@ -12,5 +12,9 @@ public class Avaliador {
 			if (lance.getValor() > maiorDeTodos )
 				maiorDeTodos = lance.getValor();
 		}
+	}
+	
+	public double getMaiorLance() {
+		return maiorDeTodos;
 	}
 }
