@@ -29,13 +29,31 @@ public class TesteDoAvaliador {
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
-		// parte 3: validação
-		double maiorEsperado = 400;
-		double menorEsperado = 250;
+		// validação, comparando resultados
+		Assert.assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
+		Assert.assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+	}
+	
+	@Test
+	public void deveEntenderLancesEmOrdemCrescenteComOutrosValores() {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+		Usuario maria = new Usuario("Maria"); 
+
+		Leilao leilao = new Leilao("Playstation 4 Novo");
+		
+		leilao.propoe(new Lance(joao, 1000.0));
+		leilao.propoe(new Lance(adebaior, 2000.0));
+		leilao.propoe(new Lance(maria, 3000.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.00001);
-		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
+		Assert.assertEquals(3000.0, leiloeiro.getMaiorLance(), 0.00001);
+		Assert.assertEquals(1000.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
@@ -55,13 +73,9 @@ public class TesteDoAvaliador {
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
-		// parte 3: validação
-		double maiorEsperado = 400;
-		double menorEsperado = 250;
-		
 		// validação, comparando resultados
-		Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.00001);
-		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
+		Assert.assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
+		Assert.assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
@@ -81,11 +95,8 @@ public class TesteDoAvaliador {
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
-		// parte 3: validação
-		double mediaDosLances = 400;
-		
 		// validação, comparando resultados
-		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
+		Assert.assertEquals(400.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 	
 	@Test
@@ -100,11 +111,8 @@ public class TesteDoAvaliador {
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
-		// parte 3: validação
-		double mediaDosLances = 0;
-		
 		// validação sem nenhum lance
-		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
+		Assert.assertEquals(0.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 
 }
