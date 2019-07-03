@@ -11,12 +11,14 @@ public class TesteDoAvaliador {
 		Usuario joao = new Usuario("João"); 
 		Usuario jose = new Usuario("Jose"); 
 		Usuario maria = new Usuario("Maria"); 
+		Usuario Adebaior = new Usuario("Adebaior"); 
 
 		Leilao leilao = new Leilao("Playstation 4 Novo");
 		
 		leilao.propoe(new Lance(joao, 300.0));
 		leilao.propoe(new Lance(jose, 400.0));
 		leilao.propoe(new Lance(maria, 250.0));
+		leilao.propoe(new Lance(Adebaior, 50.0));
 		
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
