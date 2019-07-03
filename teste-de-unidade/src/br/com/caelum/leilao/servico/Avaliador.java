@@ -12,12 +12,18 @@ public class Avaliador {
 	private double mediaDosLances = 0;
 
 	public void avalia(Leilao leilao) {
+		
+		double valorTotalDosLances = 0;
 		for (Lance lance : leilao.getLances()) {
 			if (lance.getValor() > maiorDeTodos) {maiorDeTodos = lance.getValor();}
 			if(lance.getValor() < menorDeTodos) {menorDeTodos = lance.getValor();}
-			mediaDosLances += lance.getValor();
+			valorTotalDosLances += lance.getValor();
 		}
-		mediaDosLances = mediaDosLances / leilao.getLances().size();
+		if(valorTotalDosLances == 0) {
+			mediaDosLances = 0;
+			return;
+		}
+		mediaDosLances = valorTotalDosLances / leilao.getLances().size();
 	}
 	
 	public double getMaiorLance() {

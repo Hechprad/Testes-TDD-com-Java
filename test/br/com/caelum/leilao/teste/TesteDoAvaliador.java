@@ -38,5 +38,73 @@ public class TesteDoAvaliador {
 		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
 		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
 	}
+	
+	@Test
+	public void deveEntenderLancesEmOrdemDecrescente() {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+		Usuario maria = new Usuario("Maria"); 
+
+		Leilao leilao = new Leilao("Playstation 4 Novo");
+		
+		leilao.propoe(new Lance(joao, 400.0));
+		leilao.propoe(new Lance(adebaior, 300.0));
+		leilao.propoe(new Lance(maria, 250.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		// parte 3: validação
+		double maiorEsperado = 400;
+		double menorEsperado = 250;
+		double mediaDosLances = 316.66666;
+		
+		Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.00001);
+		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
+		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
+	}
+	
+	@Test
+	public void deveCalcularAMediaDosLances() {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+		Usuario maria = new Usuario("Maria"); 
+
+		Leilao leilao = new Leilao("Playstation 4 Novo");
+		
+		leilao.propoe(new Lance(joao, 300.0));
+		leilao.propoe(new Lance(adebaior, 400.0));
+		leilao.propoe(new Lance(maria, 500.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		// parte 3: validação
+		double mediaDosLances = 400;
+		
+		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
+	}
+	
+	@Test
+	public void deveCalcularAMediaDeZeroLance() {
+		// parte 1: cenário
+		Usuario adebaior = new Usuario("Adebaior"); 
+
+		Leilao leilao = new Leilao("Playstation 4 Novo");
+		// nenhum lance
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		// parte 3: validação
+		double mediaDosLances = 0;
+		
+		Assert.assertEquals(mediaDosLances, leiloeiro.getMediaDosLances(), 0.00001);
+	}
 
 }
