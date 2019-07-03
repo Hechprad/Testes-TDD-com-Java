@@ -13,7 +13,7 @@ public class TesteDoAvaliador {
 	// deve ser obrigatoriamente public void e não receber parâmetros
 	// também deve set anotado com 'test'
 	@Test
-	public void main() {
+	public void deveEntenderLancesEmOrdemCrescente() {
 		// parte 1: cenário
 		Usuario joao = new Usuario("João"); 
 		Usuario adebaior = new Usuario("Adebaior"); 
