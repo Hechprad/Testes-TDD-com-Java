@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.caelum.leilao.dominio.Lance;
@@ -82,17 +81,80 @@ public class TesteDoAvaliador {
 	}
 	
 	@Test
+	public void deveDevolverTodosLancesCasoNaoHajaNoMinimo3() {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+
+		Leilao leilao = new Leilao("Celular tópi");
+		
+		leilao.propoe(new Lance(joao, 100.0));
+		leilao.propoe(new Lance(adebaior, 200.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		List<Lance> maiores = leiloeiro.getTresMaiores();
+		
+		// validação, comparando resultados
+		assertEquals(2, maiores.size());
+		assertEquals(200.0, maiores.get(0).getValor(), 0.00001);
+		assertEquals(100.0, maiores.get(1).getValor(), 0.00001);
+	}
+	
+	@Test
+	public void deveDevolverListaVaziaCasoNaoHajaLances() {
+		// parte 1: cenário
+		Leilao leilao = new Leilao("Xbox");
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		List<Lance> maiores = leiloeiro.getTresMaiores();
+		
+		// validação, comparando resultados
+		assertEquals(0, maiores.size());
+	}
+	
+	@Test
+	public void deveEntenderLancesRandomicos() {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+
+		Leilao leilao = new Leilao("Televisão 50 pol");
+		
+		leilao.propoe(new Lance(joao, 200.0));
+		leilao.propoe(new Lance(adebaior, 450.0));
+		leilao.propoe(new Lance(joao, 120.0));
+		leilao.propoe(new Lance(adebaior, 700.0));
+		leilao.propoe(new Lance(joao, 630.0));
+		leilao.propoe(new Lance(adebaior, 230.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		// validação, comparando resultados
+		assertEquals(120.0, leiloeiro.getMenorLance(), 0.00001);
+		assertEquals(700.0, leiloeiro.getMaiorLance(), 0.00001);
+	}
+	
+	@Test
 	public void deveEntenderLancesEmOrdemDecrescente() {
 		// parte 1: cenário
 		Usuario joao = new Usuario("João"); 
 		Usuario adebaior = new Usuario("Adebaior"); 
 		Usuario maria = new Usuario("Maria"); 
 
-		Leilao leilao = new Leilao("Playstation 4 Novo");
+		Leilao leilao = new Leilao("Radio am");
 		
 		leilao.propoe(new Lance(joao, 400.0));
 		leilao.propoe(new Lance(adebaior, 300.0));
 		leilao.propoe(new Lance(maria, 250.0));
+		leilao.propoe(new Lance(joao, 100.0));
 		
 		// parte 2: ação
 		Avaliador leiloeiro = new Avaliador();
@@ -100,7 +162,7 @@ public class TesteDoAvaliador {
 		
 		// validação, comparando resultados
 		assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
-		assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+		assertEquals(100.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
@@ -123,7 +185,7 @@ public class TesteDoAvaliador {
 		// validação, comparando resultados
 		assertEquals(400.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
-	
+
 	@Test
 	public void deveCalcularAMediaDeZeroLance() {
 		// parte 1: cenário
@@ -139,5 +201,5 @@ public class TesteDoAvaliador {
 		// validação sem nenhum lance
 		assertEquals(0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
-
+	
 }

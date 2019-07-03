@@ -15,22 +15,33 @@ public class Avaliador {
 	private double menorDeTodos = Double.POSITIVE_INFINITY;
 	// constante que guarda a média dos lances inicializada com o valor 0
 	private double mediaDosLances = 0;
-	private List<Lance> maiores;
+	double valorTotalDosLances = 0;
+	private List<Lance> maiores = new ArrayList<>();
 
 	public void avalia(Leilao leilao) {
 		
-		double valorTotalDosLances = 0;
-		for (Lance lance : leilao.getLances()) {
-			if (lance.getValor() > maiorDeTodos) {maiorDeTodos = lance.getValor();}
-			if(lance.getValor() < menorDeTodos) {menorDeTodos = lance.getValor();}
-			valorTotalDosLances += lance.getValor();
-		}
+//		for (Lance lance : leilao.getLances()) {
+//			if (lance.getValor() > maiorDeTodos) {maiorDeTodos = lance.getValor();}
+//			if (lance.getValor() < menorDeTodos) {menorDeTodos = lance.getValor();}
+//			valorTotalDosLances += lance.getValor();
+//		}
+		
+		leilao.getLances().forEach( lance -> {
+            if(lance.getValor() > maiorDeTodos) maiorDeTodos = lance.getValor();
+            if(lance.getValor() < menorDeTodos) menorDeTodos = lance.getValor();
+            valorTotalDosLances += lance.getValor();
+        });
+		
 		if(valorTotalDosLances == 0) {
 			mediaDosLances = 0;
 			return;
 		}
 		mediaDosLances = valorTotalDosLances / leilao.getLances().size();
 		
+		pegaOsMaioresNo(leilao);
+	}
+	
+	private void pegaOsMaioresNo(Leilao leilao) {
 		maiores = new ArrayList<Lance>(leilao.getLances());
 		Collections.sort(maiores, new Comparator<Lance>() {
 			@Override
@@ -42,9 +53,9 @@ public class Avaliador {
 		});
 		maiores = maiores.subList(0, maiores.size() > 3 ? 3 : maiores.size());
 	}
-	
+
 	public List<Lance> getTresMaiores() {
-		return maiores;
+		return this.maiores;
 	}
 	
 	public double getMaiorLance() {
