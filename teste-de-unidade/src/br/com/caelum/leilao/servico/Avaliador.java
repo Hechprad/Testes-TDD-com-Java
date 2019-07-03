@@ -8,7 +8,7 @@ public class Avaliador {
 	private double maiorDeTodos = Double.NEGATIVE_INFINITY;
 	// constante que guarda o maior número double
 	private double menorDeTodos = Double.POSITIVE_INFINITY;
-	// constante que guarda o menor número double
+	// constante que guarda a média dos lances inicializada com o valor 0
 	private double mediaDosLances = 0;
 
 	public void avalia(Leilao leilao) {
