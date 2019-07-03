@@ -15,10 +15,10 @@ public class TesteDoAvaliador {
 
 		Leilao leilao = new Leilao("Playstation 4 Novo");
 		
-		leilao.propoe(new Lance(joao, 300.0));
-		leilao.propoe(new Lance(jose, 400.0));
-		leilao.propoe(new Lance(maria, 250.0));
-		leilao.propoe(new Lance(Adebaior, 50.0));
+		leilao.propoe(new Lance(joao, 250.0));
+		leilao.propoe(new Lance(jose, 300.0));
+		leilao.propoe(new Lance(maria, 400.0));
+		leilao.propoe(new Lance(Adebaior, 450.0));
 		
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
