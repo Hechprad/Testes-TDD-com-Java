@@ -8,23 +8,27 @@ import br.com.caelum.leilao.servico.Avaliador;
 public class TesteDoAvaliador {
 
 	public static void main(String[] args) {
+		// parte 1: cenário
 		Usuario joao = new Usuario("João"); 
-		Usuario jose = new Usuario("Jose"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
 		Usuario maria = new Usuario("Maria"); 
-		Usuario Adebaior = new Usuario("Adebaior"); 
 
 		Leilao leilao = new Leilao("Playstation 4 Novo");
 		
 		leilao.propoe(new Lance(joao, 250.0));
-		leilao.propoe(new Lance(jose, 300.0));
+		leilao.propoe(new Lance(adebaior, 300.0));
 		leilao.propoe(new Lance(maria, 400.0));
-		leilao.propoe(new Lance(Adebaior, 450.0));
 		
+		// parte 2: ação
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
-		System.out.println(leiloeiro.getMaiorLance());
-		System.out.println(leiloeiro.getMenorLance());
+		// parte 3: validação
+		double maiorEsperado = 400;
+		double menorEsperado = 250;
+		
+		System.out.println(maiorEsperado == leiloeiro.getMaiorLance());
+		System.out.println(menorEsperado == leiloeiro.getMenorLance());
 	}
 
 }
