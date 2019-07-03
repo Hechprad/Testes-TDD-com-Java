@@ -33,9 +33,8 @@ public class TesteDoAvaliador {
 		double maiorEsperado = 400;
 		double menorEsperado = 250;
 		
-		System.out.println(maiorEsperado == leiloeiro.getMaiorLance());
 		Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.00001);
-		System.out.println(menorEsperado == leiloeiro.getMenorLance());
+		Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.00001);
 	}
 
 }
