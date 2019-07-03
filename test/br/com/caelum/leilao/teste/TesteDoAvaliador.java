@@ -2,6 +2,8 @@ package br.com.caelum.leilao.teste;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -51,6 +53,32 @@ public class TesteDoAvaliador {
 		// validação, comparando resultados
 		assertEquals(1000.0, leiloeiro.getMaiorLance(), 0.00001);
 		assertEquals(1000.0, leiloeiro.getMenorLance(), 0.00001);
+	}
+	
+	@Test
+	public void deveEncontrarOsTresMaioresLances () {
+		// parte 1: cenário
+		Usuario joao = new Usuario("João"); 
+		Usuario adebaior = new Usuario("Adebaior"); 
+
+		Leilao leilao = new Leilao("Celular tópi");
+		
+		leilao.propoe(new Lance(joao, 100.0));
+		leilao.propoe(new Lance(adebaior, 200.0));
+		leilao.propoe(new Lance(joao, 300.0));
+		leilao.propoe(new Lance(adebaior, 400.0));
+		
+		// parte 2: ação
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.avalia(leilao);
+		
+		List<Lance> maiores = leiloeiro.getTresMaiores();
+		
+		// validação, comparando resultados
+		assertEquals(3, maiores.size());
+		assertEquals(400.0, maiores.get(0).getValor(), 0.00001);
+		assertEquals(300.0, maiores.get(1).getValor(), 0.00001);
+		assertEquals(200.0, maiores.get(2).getValor(), 0.00001);
 	}
 	
 	@Test
@@ -109,7 +137,7 @@ public class TesteDoAvaliador {
 		leiloeiro.avalia(leilao);
 		
 		// validação sem nenhum lance
-		assertEquals(0.0, leiloeiro.getMediaDosLances(), 0.00001);
+		assertEquals(0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 
 }
