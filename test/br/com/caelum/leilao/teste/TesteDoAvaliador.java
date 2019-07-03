@@ -1,5 +1,7 @@
 package br.com.caelum.leilao.teste;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,30 +32,25 @@ public class TesteDoAvaliador {
 		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		Assert.assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
-		Assert.assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+		assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
+		assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
-	public void deveEntenderLancesEmOrdemCrescenteComOutrosValores() {
+	public void deveEntenderLeilaoComApenasUmLance() {
 		// parte 1: cenário
 		Usuario joao = new Usuario("João"); 
-		Usuario adebaior = new Usuario("Adebaior"); 
-		Usuario maria = new Usuario("Maria"); 
-
-		Leilao leilao = new Leilao("Playstation 4 Novo");
+		Leilao leilao = new Leilao("Carro Zero");
 		
 		leilao.propoe(new Lance(joao, 1000.0));
-		leilao.propoe(new Lance(adebaior, 2000.0));
-		leilao.propoe(new Lance(maria, 3000.0));
 		
 		// parte 2: ação
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		Assert.assertEquals(3000.0, leiloeiro.getMaiorLance(), 0.00001);
-		Assert.assertEquals(1000.0, leiloeiro.getMenorLance(), 0.00001);
+		assertEquals(1000.0, leiloeiro.getMaiorLance(), 0.00001);
+		assertEquals(1000.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
@@ -74,8 +71,8 @@ public class TesteDoAvaliador {
 		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		Assert.assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
-		Assert.assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+		assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
+		assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
 	}
 	
 	@Test
@@ -96,7 +93,7 @@ public class TesteDoAvaliador {
 		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		Assert.assertEquals(400.0, leiloeiro.getMediaDosLances(), 0.00001);
+		assertEquals(400.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 	
 	@Test
@@ -112,7 +109,7 @@ public class TesteDoAvaliador {
 		leiloeiro.avalia(leilao);
 		
 		// validação sem nenhum lance
-		Assert.assertEquals(0.0, leiloeiro.getMediaDosLances(), 0.00001);
+		assertEquals(0.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 
 }
