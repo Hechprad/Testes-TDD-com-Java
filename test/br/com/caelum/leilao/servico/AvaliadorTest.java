@@ -41,13 +41,13 @@ public class AvaliadorTest {
 	  System.out.println("@After - Fim do teste!");
 	}
 	
-	// diz para o JUnit executar este método UMA vez antes de rodar a classe 'AvaliadorTest'
+	// diz para o JUnit executar este método UMA vez antes de rodar os métodos da classe 'AvaliadorTest'
 	@BeforeClass
 	public static void testandoBeforeClass() {
 	  System.out.println("@BeforeClass - before class");
 	}
 
-	// diz para o JUnit executar este método UMA vez após rodar a classe 'AvaliadorTest'
+	// diz para o JUnit executar este método UMA vez após rodar os métodos da classe 'AvaliadorTest'
 	@AfterClass
 	public static void testandoAfterClass() {
 	  System.out.println("@AfterClass - after class");
