@@ -18,7 +18,6 @@ public class FiltroDeLances {
             else if(lance.getValor() > 5000) 
                     resultado.add(lance);
         }
-
         return resultado;
     }
 }
