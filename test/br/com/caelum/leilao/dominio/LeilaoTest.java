@@ -2,16 +2,29 @@ package br.com.caelum.leilao.dominio;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import br.com.caelum.leilao.builder.CriadorDeLeilao;
 
 public class LeilaoTest {
 
+	private Usuario steveJobs;
+	private Usuario steveWozniak;
+	private Usuario billGates;
+
+	@Before
+	public void setUp() {
+		this.steveJobs = new Usuario("Steve Jobs");
+		this.steveWozniak = new Usuario("Steve Wozniak");
+		this.billGates = new Usuario("Bill Gates");
+	}
 	@Test
 	public void deveReceberUmLance() {
-		Leilao leilao = new Leilao("Monitor 21 pol");
-		assertEquals(0, leilao.getLances().size());
 		
-		leilao.propoe(new Lance(new Usuario("Adebaior"), 500.0));
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 21 pol")
+				.lance(billGates, 500.0)
+				.constroi();
 
 		assertEquals(1, leilao.getLances().size());
 		assertEquals(500.0, leilao.getLances().get(0).getValor(), 0.00001);
@@ -19,10 +32,12 @@ public class LeilaoTest {
 	
 	@Test
 	public void deveReceberVariosLances() {
-		Leilao leilao = new Leilao("Monitor 40 pol");
-		leilao.propoe(new Lance(new Usuario("Steve Jobs"), 2000.0));
-		leilao.propoe(new Lance(new Usuario("Steve Wozniak"), 3000.0));
-		leilao.propoe(new Lance(new Usuario("Adebaior"), 500.0));
+		
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 40 pol")
+				.lance(steveJobs, 2000.0)
+				.lance(steveWozniak, 3000.0)
+				.lance(billGates, 500.0)
+				.constroi();
 		
 		assertEquals(3, leilao.getLances().size());
 		assertEquals(2000.0, leilao.getLances().get(0).getValor(), 0.00001);
@@ -32,11 +47,11 @@ public class LeilaoTest {
 	
 	@Test
 	public void naoDeveAceitarDoisLancesSeguidosDoMesmoUsuario() {
-		Leilao leilao = new Leilao("Monitor 52 pol");
-		Usuario steveJobs = new Usuario("Steve Jobs");
 		
-		leilao.propoe(new Lance(steveJobs, 2000.0));
-		leilao.propoe(new Lance(steveJobs, 3000.0));
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 52 pol")
+				.lance(steveJobs, 2000.0)
+				.lance(steveJobs, 3000.0)
+				.constroi();
 		
 		assertEquals(1, leilao.getLances().size());
 		assertEquals(2000.0, leilao.getLances().get(0).getValor(), 0.00001);
@@ -44,25 +59,20 @@ public class LeilaoTest {
 	
 	@Test
 	public void naoDeveAceitarMaisDoQue5LancesDeUmMesmoUsuario() {
-		Leilao leilao = new Leilao("Monitor 52 pol");
-		Usuario steveJobs = new Usuario("Steve Jobs");
-		Usuario billGates = new Usuario("Bill Gates");
 		
-		leilao.propoe(new Lance(steveJobs, 2000.0));
-		leilao.propoe(new Lance(billGates, 3000.0));
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 40 pol")
+				.lance(steveJobs, 2000.0)
+				.lance(billGates, 3000.0)
+				.lance(steveJobs, 4000.0)
+				.lance(billGates, 5000.0)
+				.lance(steveJobs, 6000.0)
+				.lance(billGates, 7000.0)
+				.lance(steveJobs, 8000.0)
+				.lance(billGates, 9000.0)
+				.lance(steveJobs, 10000.0)
+				.lance(billGates, 11000.0)
+				.constroi();
 		
-		leilao.propoe(new Lance(steveJobs, 4000.0));
-		leilao.propoe(new Lance(billGates, 5000.0));
-		
-		leilao.propoe(new Lance(steveJobs, 6000.0));
-		leilao.propoe(new Lance(billGates, 7000.0));
-		
-		leilao.propoe(new Lance(steveJobs, 8000.0));
-		leilao.propoe(new Lance(billGates, 9000.0));
-
-		leilao.propoe(new Lance(steveJobs, 10000.0));
-		leilao.propoe(new Lance(billGates, 11000.0));
-
 		// deve ser ignorado
 		leilao.propoe(new Lance(steveJobs, 12000.0));
 		
@@ -72,12 +82,12 @@ public class LeilaoTest {
 	
 	@Test
 	public void deveDobrarOUltimoLanceDado() {
-		Leilao leilao = new Leilao("Monitor 52 pol");
-		Usuario steveJobs = new Usuario("Steve Jobs");
-		Usuario billGates = new Usuario("Bill Gates");
 		
-		leilao.propoe(new Lance(steveJobs, 2000.0));
-		leilao.propoe(new Lance(billGates, 3000.0));
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 52 pol")
+				.lance(steveJobs, 2000.0)
+				.lance(billGates, 3000.0)
+				.constroi();
+		
 		leilao.dobraLance(steveJobs);
 		
 		assertEquals(3, leilao.getLances().size());
@@ -86,11 +96,11 @@ public class LeilaoTest {
 	
 	@Test
 	public void naoDeveDobrarCasoNaoHajaLanceAnterior() {
-		Leilao leilao = new Leilao("Monitor 52 pol");
-		Usuario steveJobs = new Usuario("Steve Jobs");
-		Usuario billGates = new Usuario("Bill Gates");
 		
-		leilao.propoe(new Lance(billGates, 3000.0));
+		Leilao leilao = new CriadorDeLeilao().para("Monitor 52 pol")
+				.lance(billGates, 3000.0)
+				.constroi();
+		
 		leilao.dobraLance(steveJobs);
 		
 		assertEquals(1, leilao.getLances().size());
