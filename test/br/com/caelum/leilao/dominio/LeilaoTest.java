@@ -106,4 +106,18 @@ public class LeilaoTest {
 		assertEquals(1, leilao.getLances().size());
 		assertEquals(3000.0, leilao.getLances().get(0).getValor(), 0.00001);
 	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void lanceNaoPodeSerZero() {
+		new CriadorDeLeilao().para("Bota marrom semi-nova")
+				.lance(billGates, 0)
+				.constroi();
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void lanceNaoPodeSerMenorQueZero() {
+		new CriadorDeLeilao().para("Bota marrom semi-nova")
+				.lance(billGates, -100)
+				.constroi();
+	}
 }
