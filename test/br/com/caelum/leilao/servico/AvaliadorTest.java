@@ -11,7 +11,7 @@ import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
 import br.com.caelum.leilao.servico.Avaliador;
 
-public class TesteDoAvaliador {
+public class AvaliadorTest {
 
 	// deve ser obrigatoriamente public void e não receber parâmetros
 	// também deve set anotado com 'test'
