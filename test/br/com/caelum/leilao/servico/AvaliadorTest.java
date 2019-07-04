@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class AvaliadorTest {
 	private Usuario adebaior;
 	private Usuario maria;
 
-	// diz para o JUnit executar este método UMA vez antes de rodar o teste
+	// diz para o JUnit executar este método UMA vez antes de rodar cada teste
 	@Before
 	public void criaAvaliador() {
 		this.leiloeiro = new Avaliador();
@@ -28,6 +29,14 @@ public class AvaliadorTest {
 		this.joao = new Usuario("João"); 
 		this.adebaior = new Usuario("Adebaior"); 
 		this.maria = new Usuario("Maria");
+		
+		System.out.println("Inicializando o teste!");
+	}
+	
+	// diz para o JUnit executar este método UMA vez após rodar cada teste
+	@After
+	public void finaliza() {
+	  System.out.println("Fim do teste!");
 	}
 	
 	// deve ser obrigatoriamente public void e não receber parâmetros
