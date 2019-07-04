@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.caelum.leilao.builder.CriadorDeLeilao;
@@ -30,13 +32,25 @@ public class AvaliadorTest {
 		this.adebaior = new Usuario("Adebaior"); 
 		this.maria = new Usuario("Maria");
 		
-		System.out.println("Inicializando o teste!");
+		System.out.println("@Before - Inicializando o teste!");
 	}
 	
 	// diz para o JUnit executar este método UMA vez após rodar cada teste
 	@After
 	public void finaliza() {
-	  System.out.println("Fim do teste!");
+	  System.out.println("@After - Fim do teste!");
+	}
+	
+	// diz para o JUnit executar este método UMA vez antes de rodar a classe 'AvaliadorTest'
+	@BeforeClass
+	public static void testandoBeforeClass() {
+	  System.out.println("@BeforeClass - before class");
+	}
+
+	// diz para o JUnit executar este método UMA vez após rodar a classe 'AvaliadorTest'
+	@AfterClass
+	public static void testandoAfterClass() {
+	  System.out.println("@AfterClass - after class");
 	}
 	
 	// deve ser obrigatoriamente public void e não receber parâmetros
