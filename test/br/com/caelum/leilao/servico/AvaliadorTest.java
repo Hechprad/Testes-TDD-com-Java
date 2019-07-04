@@ -1,12 +1,13 @@
 package br.com.caelum.leilao.servico;
 
 import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,7 +16,6 @@ import br.com.caelum.leilao.builder.CriadorDeLeilao;
 import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
-import br.com.caelum.leilao.servico.Avaliador;
 
 public class AvaliadorTest {
 
@@ -76,8 +76,11 @@ public class AvaliadorTest {
 		leiloeiro.avalia(leilao);
 		
 		// validação, comparando resultados
-		assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
-		assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+		// utilizando o hamcrest
+		// assertEquals(400.0, leiloeiro.getMaiorLance(), 0.00001);
+		assertThat(leiloeiro.getMaiorLance(), equalTo(400.0));
+		//assertEquals(250.0, leiloeiro.getMenorLance(), 0.00001);
+		assertThat(leiloeiro.getMenorLance(), equalTo(250.0));
 	}
 	
 	@Test
