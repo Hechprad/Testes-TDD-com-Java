@@ -189,8 +189,6 @@ public class TesteDoAvaliador {
 	@Test
 	public void deveCalcularAMediaDeZeroLance() {
 		// parte 1: cenário
-		Usuario adebaior = new Usuario("Adebaior"); 
-
 		Leilao leilao = new Leilao("Playstation 4 Novo");
 		// nenhum lance
 		
