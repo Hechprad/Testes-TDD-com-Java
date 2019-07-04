@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -51,6 +52,13 @@ public class AvaliadorTest {
 	@AfterClass
 	public static void testandoAfterClass() {
 	  System.out.println("@AfterClass - after class");
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
+			Leilao leilao = new CriadorDeLeilao().para("Playstation 3 Novo")
+					.constroi();
+			leiloeiro.avalia(leilao);
 	}
 	
 	// deve ser obrigatoriamente public void e não receber parâmetros
@@ -128,21 +136,21 @@ public class AvaliadorTest {
 		assertEquals(100.0, maiores.get(1).getValor(), 0.00001);
 	}
 	
-	@Test
-	public void deveDevolverListaVaziaCasoNaoHajaLances() {
-		// parte 1: cenário
-		Leilao leilao = new CriadorDeLeilao().para("Xbox")
-				.constroi();
-		
-		// parte 2: ação
-		leiloeiro.avalia(leilao);
-		
-		List<Lance> maiores = leiloeiro.getTresMaiores();
-		
-		// validação, comparando resultados
-		assertEquals(0, maiores.size());
-	}
-	
+//	@Test
+//	public void deveDevolverListaVaziaCasoNaoHajaLances() {
+//		// parte 1: cenário
+//		Leilao leilao = new CriadorDeLeilao().para("Xbox")
+//				.constroi();
+//		
+//		// parte 2: ação
+//		leiloeiro.avalia(leilao);
+//		
+//		List<Lance> maiores = leiloeiro.getTresMaiores();
+//		
+//		// validação, comparando resultados
+//		assertEquals(0, maiores.size());
+//	}
+//	
 	@Test
 	public void deveEntenderLancesRandomicos() {
 		// parte 1: cenário
@@ -196,18 +204,18 @@ public class AvaliadorTest {
 		assertEquals(400.0, leiloeiro.getMediaDosLances(), 0.00001);
 	}
 
-	@Test
-	public void deveCalcularAMediaDeZeroLance() {
-		// parte 1: cenário
-		Leilao leilao = new CriadorDeLeilao().para("Playstation 4 Novo")
-				.constroi();
-		// nenhum lance
-		
-		// parte 2: ação
-		leiloeiro.avalia(leilao);
-		
-		// validação sem nenhum lance
-		assertEquals(0, leiloeiro.getMediaDosLances(), 0.00001);
-	}
+//	@Test
+//	public void deveCalcularAMediaDeZeroLance() {
+//		// parte 1: cenário
+//		Leilao leilao = new CriadorDeLeilao().para("Playstation 4 Novo")
+//				.constroi();
+//		// nenhum lance
+//		
+//		// parte 2: ação
+//		leiloeiro.avalia(leilao);
+//		
+//		// validação sem nenhum lance
+//		assertEquals(0, leiloeiro.getMediaDosLances(), 0.00001);
+//	}
 	
 }
