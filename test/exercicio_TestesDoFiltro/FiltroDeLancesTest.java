@@ -1,4 +1,4 @@
-package exercicio_TestesDoFiltro_test;
+package exercicio_TestesDoFiltro;
 
 import static org.junit.Assert.assertEquals;
 

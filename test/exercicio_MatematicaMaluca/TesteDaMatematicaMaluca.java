@@ -1,4 +1,4 @@
-package exercicio_MatematicaMaluca_test;
+package exercicio_MatematicaMaluca;
 
 import static org.junit.Assert.assertEquals;
 
