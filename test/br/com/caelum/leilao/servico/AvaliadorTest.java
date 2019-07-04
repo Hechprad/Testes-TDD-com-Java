@@ -115,9 +115,16 @@ public class AvaliadorTest {
 		
 		// validação, comparando resultados
 		assertEquals(3, maiores.size());
-		assertEquals(400.0, maiores.get(0).getValor(), 0.00001);
-		assertEquals(300.0, maiores.get(1).getValor(), 0.00001);
-		assertEquals(200.0, maiores.get(2).getValor(), 0.00001);
+//		assertEquals(400.0, maiores.get(0).getValor(), 0.00001);
+//		assertEquals(300.0, maiores.get(1).getValor(), 0.00001);
+//		assertEquals(200.0, maiores.get(2).getValor(), 0.00001);
+		// com hamcrest
+		assertThat(maiores, hasItems(
+				new Lance(adebaior, 400),
+				new Lance(joao, 300),
+				new Lance(adebaior, 200),
+				new Lance(joao, 100)
+		));
 	}
 	
 	@Test
